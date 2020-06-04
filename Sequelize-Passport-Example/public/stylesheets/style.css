@@ -2,3 +2,14 @@ form.signup,
 form.login {
   margin-top: 50px;
 }
+
+body {
+  background-color: black;
+  text-align: center;
+}
+
+canvas {
+  background-image: url(public/...........);
+  background-size: cover;
+  border: 1px solid #000;
+}
