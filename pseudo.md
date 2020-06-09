@@ -24,3 +24,5 @@
 
 ## STAY will pretty much pass the turn of the User and keep the cards that were given to them by the Comp Dealer.
 
+
+## Database will house login info, wins, losses, and how many BJ's they got.
