@@ -87,7 +87,12 @@ function dealCards() {
 // this function will take whatever the hand is add the two values and returns total and replaces the previous card.weight. 
 function calculateHand(hand) {
   var total = hand.reduce(function (total, card) {
-      return total += card.weight;
+     total += card.weight;
+     if(total>21){
+       dealerTurn();
+     }else{
+       return total;
+     }
   });
 
   var displayTotal = `${total}`;
@@ -115,15 +120,26 @@ function hasAce(hand) {
   return hasAce;
 };
 
+function stay(){
+  dealerTurn();
+}
+
+function hitMe(){
+  var card = deck.shift();
+  player.hand.push(card);
+  player.total = calculateHand(player.hand).total;
+  player.displayTotal = calculateHand(player.hand).displayTotal;
+}
+
 function dealerTurn() {
   while (dealer.total < 17) {
       var newCard = deck.shift();
       dealer.hand.push(newCard);
-
       dealer.total = calculateHand(dealer.hand).total;
       dealer.displayTotal = calculateHand(dealer.hand).displayTotal;
-  };
-};
+  }
+    endGame();
+  }
 
 function endGame() {
   if (player.total > 21) {

@@ -186,6 +186,7 @@ function inputName() {
 function createAllDom() {
     var cardTable = $('<div>', {'class': 'container', 'id': 'card-table'});
     var dealerHand = $('<div>', {'class': 'hand', 'id': 'dealer-hand'});
+    var dealerBox = $("<div>",{"id": "dealer-box"});
     var playersContainer = $('<div>', {'class': 'player-container', 'id': 'players-container'});
     let playerHand = $('<div>', {'class': 'hand', 'id': 'player-hand'});
     var buttons = $('<div>', {'id': 'button-bar'});
