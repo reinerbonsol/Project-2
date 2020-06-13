@@ -1,53 +1,64 @@
 // Requiring our models and passport as we've configured it
 var db = require("../models");
-var passport = require("../config/passport");
+
 
 module.exports = function(app) {
-  // Using the passport.authenticate middleware with our local strategy.
-  // If the user has valid login credentials, send them to the members page.
-  // Otherwise the user will be sent an error
-  app.post("/api/login", passport.authenticate("local"), function(req, res) {
-    // Sending back a password, even a hashed password, isn't a good idea
-    res.json({
-      email: req.user.email,
-      id: req.user.id
-    });
-  });
+//get request to get all info from database per user create table 
+app.get("/api/user_data", function(req, res) {
+  db.User.findAll({}).then(function(dbPlayers) {
+    res.json(dbPlayers);
+});
+},
 
-  // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
-  // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
-  // otherwise send back an error
-  app.post("/api/signup", function(req, res) {
-    db.User.create({
-      email: req.body.email,
-      password: req.body.password
-    })
-      .then(function() {
-        res.redirect(307, "/api/login");
-      })
-      .catch(function(err) {
-        res.status(401).json(err);
-      });
-  });
-
-  // Route for logging user out
-  app.get("/logout", function(req, res) {
-    req.logout();
-    res.redirect("/");
-  });
-
-  // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", function(req, res) {
-    if (!req.user) {
-      // The user is not logged in, send back an empty object
-      res.json({});
-    } else {
-      // Otherwise send back the user's email and id
-      // Sending back a password, even a hashed password, isn't a good idea
-      res.json({
-        email: req.user.email,
-        id: req.user.id
-      });
+//post request to update wins, losses, blackjacks
+app.put("/win", function(req, res) {
+  db.User.update({
+    wins: req.body.wins+1
+  }, {
+    where: {
+      username: req.body.username
     }
-  });
-};
+  })
+    .then(function(dbTodo) {
+      res.json(dbTodo);
+    });
+}),
+
+//update losses
+app.put("/loss", function(req, res) {
+  db.User.update({
+    losses: req.body.losses+1
+  }, {
+    where: {
+      username: req.body.username
+    }
+  })
+    .then(function(dbLoss) {
+      res.json(dbLoss);
+    });
+}),
+//update blackjacks
+app.put("/blackjack", function(req, res) {
+  db.User.update({
+    wins: req.body.wins+1,
+    bjs: req.body.bjs+1
+  }, {
+    where: {
+      username: req.body.username
+    }
+  })
+    .then(function(dbBj) {
+      res.json(dbBj);
+    });
+}),
+
+//post request to post a new user in the database
+app.post("/", function(req, res) {
+  db.User.create({
+    username: req.body.username,
+    password: req.body.password
+  }).then(function(){
+
+  })
+})
+}

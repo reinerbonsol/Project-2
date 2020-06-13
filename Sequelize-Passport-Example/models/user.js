@@ -4,19 +4,37 @@ var bcrypt = require("bcryptjs");
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
     // The email cannot be null, and must be a proper email before creation
-    email: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true
+        isusername: true,
+        len: [1,25]
       }
     },
     // The password cannot be null
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    wins: {
+      type: DataTypes.INT, //Unlimited characters
+      allowNull: false,
+      defaultValue: 0
+    },
+    losses: {
+      type: DataTypes.INT, //Unlimited characters
+      allowNull: false,
+      defaultValue: 0
+    },
+    bjs: {
+      type: DataTypes.INT,
+      allowNull: false,
+      defaultValue: 0
     }
+    
+  
   });
   // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
   User.prototype.validPassword = function(password) {

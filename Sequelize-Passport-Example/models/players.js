@@ -23,6 +23,6 @@ module.exports = function(sequelize, DataTypes) {
         defaultValue: 0
       }
     });
-    return Player;
+    return Players;
   };
   
