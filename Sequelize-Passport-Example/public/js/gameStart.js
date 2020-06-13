@@ -96,8 +96,32 @@
 //     gameStart();
 // }
 
-// init();
 
+
+
+
+// create login page
+
+
+
+var login = $(".container");
+var header = $('<h1>').text("Black Jack");
+var inputUser = $('<p1>').text("Username:");
+var inputPass = $('<p2>').text("Password:");
+var inputBox = $('<input>').attr({ type: 'text', id: 'test', name: 'test' });
+var userBox = $('<div>', {'id': 'userBox', 'class':'form-control','class':'form-group mx-sm-3 mb-2','type': 'text'});
+var passBox = $('<div>', {'id': 'passBox', 'input': 'text'});
+login.append(header);
+login.append(inputUser);
+inputBox.append(userBox);
+login.append(inputPass);
+inputPass.append(passBox);
+
+
+
+
+// init();
+$('#submit-but').on('click',startGame);
 //Alternative to matty Favs make deck function and Card constructor. create the card constructor separate from the actual create deck function.
 //deck and Card will become global variables instead of inside a function.
 var deck = [];

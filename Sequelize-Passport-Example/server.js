@@ -8,6 +8,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+
+
 //SERVER SIDE GAMING LOGIC
 function Card(suit, value, weight) {
   this.suit = suit;
@@ -50,7 +52,6 @@ function createDeck() {
 
 //this will take the deck and shuffle it
 function shuffle(array){
-  createDeck();
   array.sort(()=>Math.random()-0.5);
 };
 
@@ -58,6 +59,7 @@ function shuffle(array){
 
 function startGame() {
   console.log("Game has started. Get Ready!")
+  createDeck();
   dealCards();
 }
 
